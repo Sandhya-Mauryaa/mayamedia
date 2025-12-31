@@ -23,6 +23,8 @@ import BlogDetail from "./Screens/Blog/BlogDetails";
 import AdminRoutes from "./admin/AdminRoutes";
 import { AuthProvider } from "./context/AuthContext";
 
+import ScrollToTop from "./Common/ScrollToTop";
+
 function HomePage() {
   return <Homepage />;
 }
@@ -82,6 +84,7 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+      <ScrollToTop />
         <LayoutWrapper />
       </BrowserRouter>
     </AuthProvider>

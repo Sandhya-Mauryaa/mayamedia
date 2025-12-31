@@ -59,11 +59,12 @@ export default function ResponsiveGlassNavbar({
     (i) => i.label && i.label.trim().length > 0
   );
 
+  function onScroll() {
+    const y = window.scrollY || 0;
+    setScrolled(y > 80);
+  }
+
   useEffect(() => {
-    function onScroll() {
-      const y = window.scrollY || 0;
-      setScrolled(y > 8);
-    }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -217,7 +218,9 @@ export default function ResponsiveGlassNavbar({
                   const active = isActive(item.href);
                   const Inner = item.type === "link" ? Link : "a";
                   const props =
-                    item.type === "link" ? { to: item.href } : { href: item.href };
+                    item.type === "link"
+                      ? { to: item.href }
+                      : { href: item.href };
                   return (
                     <Inner
                       key={item.href}
