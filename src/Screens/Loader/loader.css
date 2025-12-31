@@ -1,0 +1,136 @@
+:root{
+  --bg:#000000;
+  --a:  #FFD54F;
+  --b:#7DD3FC;
+  --ff: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* FULL OVERLAY: now animates like a shutter opening upward */
+.loader-wrap{
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+
+  /* shutter slide setup */
+  transform: translateY(0);
+  will-change: transform;
+  transition: transform 780ms cubic-bezier(.22,1,.36,1);
+}
+
+/* slide the entire black curtain up to reveal the page */
+.loader-wrap.is-hidden{
+  transform: translateY(-100%);
+}
+
+/* soft edge highlight while it slides (premium feel) */
+.loader-wrap::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  height: 28px;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+}
+
+/* CENTER STAGE (unchanged except size tweak if you want bigger) */
+.sundown-words{
+  position: relative;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding-inline: 16px;
+  min-width: 60vw;
+}
+
+.sd-word{
+  position: absolute;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, 26px) scale(.985);
+  line-height: 1.02;
+  font-family: var(--ff);
+  font-weight: 900;
+  letter-spacing: .5px;
+
+  /* make it bigger if you want: max 180–220px looks cinematic */
+  font-size: clamp(56px, 12vw, 100px);
+
+  background: linear-gradient(90deg, var(--a), var(--b));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  opacity: 0;
+  filter: blur(10px);
+  animation: sdInOut 1.4s ease forwards;
+}
+
+.sd-1 { animation-delay: 0s;   }
+.sd-2 { animation-delay: .9s;  }
+.sd-3 { animation-delay: 1.8s; }
+
+@keyframes sdInOut{
+  0%   { opacity:0; filter:blur(10px); transform:translate(-50%, 26px) scale(.985); letter-spacing:.5px; }
+  35%  { opacity:1; filter:blur(0);    transform:translate(-50%, 0)     scale(1);    letter-spacing:.6px; }
+  65%  { opacity:1; filter:blur(0);    transform:translate(-50%, 0)     scale(1.01); }
+  100% { opacity:0; filter:blur(6px);  transform:translate(-50%, -14px) scale(.995); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .sd-word{ animation:none; opacity:1; filter:none; transform:translate(-50%,0); }
+  .loader-wrap{ transition:none; }
+}
+/* ==== Mobile: one-word-per-screen, no wrap/cut (desktop untouched) ==== */
+@media (max-width: 480px){
+  .sundown-words{
+    width: 92vw;            /* safe width */
+    min-width: 0;
+    padding-inline: 12px;
+  }
+
+  .sd-word{
+    /* keep absolute + animation (sequence intact) */
+    white-space: nowrap;     /* ek hi line */
+    hyphens: none;
+    max-width: 100%;
+    overflow: visible;       /* no clipping */
+    letter-spacing: .25px;
+    line-height: 1.06;
+
+    /* mobile spacing a little tighter */
+    transform: translate(-50%, 16px) scale(.985);
+
+    /* base size that fits on most phones */
+    font-size: clamp(20px, 9vw, 56px);
+  }
+
+  /* “MEDIA” thoda lamba hota hai, slightly smaller */
+  .sd-2{
+    font-size: clamp(20px, 8.4vw, 52px);
+  }
+
+  /* “COMMUNICATION” sabse lamba — ensure single line always */
+  .sd-3{
+    font-size: clamp(18px, 7.6vw, 48px);
+    letter-spacing: .2px;   /* thoda tight so fit ho jaye */
+  }
+
+  /* same animation timing, bas distances thode kam for phones */
+  @keyframes sdInOut{
+    0%   { opacity:0; filter:blur(10px); transform:translate(-50%, 16px) scale(.985); }
+    35%  { opacity:1; filter:blur(0);    transform:translate(-50%, 0)    scale(1); }
+    65%  { opacity:1; filter:blur(0);    transform:translate(-50%, 0)    scale(1.01); }
+    100% { opacity:0; filter:blur(6px);  transform:translate(-50%, -10px) scale(.995); }
+  }
+}
+
+/* Ultra-small phones: thoda aur compress */
+@media (max-width: 360px){
+  .sd-word{ font-size: clamp(18px, 8.6vw, 48px); }
+  .sd-2  { font-size: clamp(18px, 8.0vw, 46px); }
+  .sd-3  { font-size: clamp(16px, 7.2vw, 44px); }
+}
