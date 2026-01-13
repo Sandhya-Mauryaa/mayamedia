@@ -37,8 +37,9 @@ function BrandPill() {
 }
 
 const DEFAULT_ITEMS = [
+  { label: "Home", href: "/", type: "link" },
   { label: "Portfolio", href: "/portfolio", type: "link" },
-  { label: "Blog", href: "/blog", type: "link" },
+  //{ label: "Blog", href: "/blog", type: "link" },
   { label: "", href: "/service", type: "link" }, // empty placeholder removed later
   { label: "About", href: "/about", type: "link" },
   { label: "Result", href: "/result", type: "link" },
