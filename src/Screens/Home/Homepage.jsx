@@ -1,6 +1,6 @@
 // src/Screens/Home/Homepage.jsx
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion,} from "framer-motion";
 import Portfolio from "./Portfolio";
 import Features from "./Features";
 import AboutScreen from "../About/AboutScreen";
@@ -9,9 +9,14 @@ import FAQ from "./Faq";
 import Contact from "../Contact/Contact";
 import { ShowreelSection as Showreel } from "./Showreel";
 
-// Local assets
-import annieSpratt from "../../assets/annie-spratt-MChSQHxGZrQ-unsplash.jpg";
-import unplash2 from "../../assets/unplash2.jpg";
+// import img from "./../../assets/homepageimg1.jpg"
+import img1 from "./../../assets/main1.jpg"
+import img8 from "../../assets/milky-way-over-valley-chocholowska-with-cottage-in-2026-01-09-06-58-35-utc.jpg";
+import img3 from "../../assets/mountain-alpine-autumn-misty-morning-lake-konigsse-2026-01-09-13-38-33-utc.jpg"
+import img2 from "./../../assets/night-photo-of-traffic-jam-on-motorway-2026-01-08-05-28-49-utc.jpg";
+import img7 from "./../../assets/marmolada-3343m-mountainside-view-of-the-highest-2026-01-07-05-40-56-utc.jpeg";
+import img5 from "./../../assets/running-man-sprinting-for-success-on-run-top-view-2026-01-07-01-06-06-utc.jpg";
+import img6 from "../../assets/empty-road-at-night-with-street-lights-2026-01-08-22-44-33-utc.jpg"
 
 /* ---------- Animation helpers ---------- */
 const container = (stagger = 0.08, delay = 0) => ({
@@ -36,66 +41,17 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-/* ---------- Video modal ---------- */
-function VideoModal({ open, onClose, src }) {
-  const escRef = useRef(onClose);
-
-  useEffect(() => {
-    escRef.current = onClose;
-  }, [onClose]);
-
-  useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && escRef.current?.();
-    if (open) document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
-
-  return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          className="fixed inset-0 z-[60] grid place-items-center bg-black/70 p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          role="dialog"
-          aria-modal="true"
-        >
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.98, opacity: 0 }}
-            onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-[min(92vw,1000px)] overflow-hidden rounded-2xl bg-black"
-          >
-            <div className="aspect-video w-full">
-              <iframe
-                className="h-full w-full"
-                src={
-                  src ||
-                  "https://player.vimeo.com/video/76979871?h=8272103f6e&title=0&byline=0&portrait=0"
-                }
-                title="Showreel"
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
 
 /* ---------- Background: striped collage + glow ---------- */
 function StripedBackdrop() {
   const panels = [
-    annieSpratt,
-    unplash2,
-    "https://images.unsplash.com/photo-1482192505345-5655af888cc4?q=80&w=1200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1495344517868-8ebaf0a2044a?q=80&w=1200&auto=format&fit=crop",
+    img1,
+    img2,
+    img3,
+    img5,
+    img6,
+    img7,
+    img8,
   ];
 
   return (
@@ -111,9 +67,9 @@ function StripedBackdrop() {
               decoding="async"
               draggable={false}
               referrerPolicy="no-referrer"
-              className="h-full w-full object-cover brightness-[.55] contrast-[.95]"
+              className="h-full w-full object-cover brightness-[.65] contrast-[.95]"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/70" />
+
           </div>
         ))}
       </div>
